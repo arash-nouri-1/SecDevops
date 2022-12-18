@@ -1,0 +1,4 @@
+<app-card
+  *ngFor="let user of (users$ | async)?.data; index as i"
+  [user]="user"
+></app-card>
