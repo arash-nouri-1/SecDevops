@@ -1,0 +1,25 @@
+name: Generate SBOM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu:22.10
+    steps:
+      - name: Install trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan for vulnerabilities
+        run: trivy fs --format cyclonedx --security-checks vuln --output sbom.json .
+        id: sbom
+        
+      - name: Save SBOM to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sbom
+          path: sbom.json
+          artifact_id: sbom
