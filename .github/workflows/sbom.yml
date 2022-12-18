@@ -10,11 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install sudo
-          sudo apt-get -y install wget
       - name: Download and install Trivy
         run: |
           wget https://github.com/aquasecurity/trivy/releases/download/v0.33.0/trivy_0.33.0_Linux-64bit.deb
@@ -24,5 +19,5 @@ jobs:
       - name: Upload SBOM
         uses: actions/upload-artifact@v3
         with:
-          name: sbom.json
+          name: sbom
           path: sbom.json
