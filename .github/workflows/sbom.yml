@@ -9,17 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install trivy
+      - uses: actions/checkout@v3
+      - name: Install dependencies
         run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Scan for vulnerabilities
+          apt-get update
+          apt-get -y install sudo
+          apt-get -y install wget
+      - name: Download and install Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.33.0/trivy_0.33.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.33.0_Linux-64bit.deb
+      - name: Generate SBOM
         run: trivy fs --format cyclonedx --security-checks vuln --output sbom.json .
-        id: sbom
-        
-      - name: Save SBOM to artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v3
         with:
-          name: sbom
+          name: sbom.json
           path: sbom.json
-          artifact_id: sbom
