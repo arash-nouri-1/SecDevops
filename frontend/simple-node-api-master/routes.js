@@ -8,8 +8,8 @@ router.get("/todos", function(req, res) {
 });
 
 router.post("/todos", function(req, res) {
-  todos.push(req.body);
-  res.json(todos);
-});
-
+  todos.push(req.body);        
+  res.json(todos);  
+});        
+    
 module.exports = router;
