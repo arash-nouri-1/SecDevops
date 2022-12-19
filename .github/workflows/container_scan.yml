@@ -1,0 +1,18 @@
+name: Scan for vulnerabilities
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Docker
+      uses: docker/setup-docker@v1
+      
+    - name: Run Docker Compose
+      run: docker-compose -f docker-compose.yaml up -d
+      
+    - name: Scan for vulnerabilities
+      run: trivy --exit-code 0 --severity CRITICAL,HIGH
