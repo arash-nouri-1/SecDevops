@@ -17,10 +17,10 @@ jobs:
           sudo dpkg -i trivy_0.33.0_Linux-64bit.deb
           
       - name: Check misconfiguration
-        run: trivy config . -o misconfig
+        run: trivy config . -f json -o misconfig.json
         
       - name: Upload misconfiguration
         uses: actions/upload-artifact@v3
         with:
           name: misconfig
-          path: misconfig
+          path: misconfig.json
