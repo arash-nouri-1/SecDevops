@@ -21,3 +21,12 @@ jobs:
         with:
           name: sbom
           path: sbom.json
+          
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Run Docker Compose
+        run: docker-compose -f docker-compose.yaml up -d
+      
+      - name: Scan for vulnerabilities
+        run: trivy --exit-code 0 --severity CRITICAL,HIGH
