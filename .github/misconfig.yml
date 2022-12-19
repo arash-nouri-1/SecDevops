@@ -1,0 +1,26 @@
+name: Check misconfigurations in dockerfiles
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download and install Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.33.0/trivy_0.33.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.33.0_Linux-64bit.deb
+          
+      - name: Check misconfiguration
+        run: trivy config . -o misconfig
+        
+      - name: Upload misconfiguration
+        uses: actions/upload-artifact@v3
+        with:
+          name: misconfig
+          path: misconfig
