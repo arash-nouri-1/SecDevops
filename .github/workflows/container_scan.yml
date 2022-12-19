@@ -15,8 +15,7 @@ jobs:
         name: Build
         uses: docker/build-push-action@v3
         with:
-          context: ./frontend/Dockerfile .
-          push: true
+          context: ./frontend/
           tags: user/app:latest
       -
         name: Scan for vulnerabilities
