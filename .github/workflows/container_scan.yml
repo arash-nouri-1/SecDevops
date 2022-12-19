@@ -15,7 +15,7 @@ jobs:
         name: Build
         uses: docker/build-push-action@v3
         with:
-          context: ./frontend/Dockerfile
+          context: ./frontend/Dockerfile .
           push: true
           tags: user/app:latest
       -
