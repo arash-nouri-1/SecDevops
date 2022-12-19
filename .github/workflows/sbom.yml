@@ -1,3 +1,4 @@
+# SBOM + Automated software composition analysis (Find Vuln in SBOM)
 name: Generate SBOM
 
 on:
