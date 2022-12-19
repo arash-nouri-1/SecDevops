@@ -1,4 +1,4 @@
-name: Linter
+name: Javascript Linter
 on:
   push:
     branches:
@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Lint Action
-        uses: wearerequired/lint-action@v2.1.0
+
+      - name: Install Linter
+        run: npm install eslint
+
+      - name: Check Codestyle
+        run: npx eslint . --ext .js
