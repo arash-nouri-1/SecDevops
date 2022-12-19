@@ -1,6 +1,8 @@
 name: Javascript Linter
-
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   style:
