@@ -29,4 +29,4 @@ jobs:
         run: docker-compose -f docker-compose.yaml up -d
       
       - name: Scan for vulnerabilities
-        run: trivy --exit-code 0 --severity CRITICAL,HIGH
+        run: trivy fs --exit-code 0 --severity CRITICAL,HIGH .
